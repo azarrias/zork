@@ -19,10 +19,28 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Creature.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Exit.cpp" />
+    <ClCompile Include="globals.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="NPC.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Room.cpp" />
+    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Creature.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="Exit.h" />
+    <ClInclude Include="globals.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="NPC.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Room.h" />
     <ClInclude Include="stylemod.h" />
+    <ClInclude Include="World.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{97F56F69-AF6C-4E9C-8A19-55EAF70290B9}</ProjectGuid>
