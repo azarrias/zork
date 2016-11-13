@@ -217,7 +217,7 @@ GameState World::parse(vector<string>& vect) {
 						cout << "- " << element->getName() << "\n";
 					}
 				}
-				else cout << "You haven't got any items in your inventory yet.\n";
+				else cout << "You haven't got any items in your inventory.\n";
 			}
 			else { // GO commands
 				vector<string>::const_iterator it;
@@ -240,6 +240,17 @@ GameState World::parse(vector<string>& vect) {
 						player->container.push_back(element);
 						player->location->container.remove(element);
 						cout << stBold << stFgBlue << "You take the " << element->getName() << ".\n";
+						break;
+					}
+				}
+			}
+			if (vect.front().compare("DROP") == 0) {
+				for (Entity* element : player->container) {
+					if (vect[1].compare(element->getName()) == 0) {
+						player->location->container.push_back(element);
+						player->container.remove(element);
+						cout << stBold << stFgBlue << "You drop the " << element->getName(); 
+						cout << " on the floor.\n";
 						break;
 					}
 				}
