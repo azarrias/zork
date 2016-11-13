@@ -3,9 +3,21 @@
 
 #include "Entity.h"
 
+class Room;
+
+enum ItemCategory
+{
+	WEAPON,
+	DRINK,
+	FOOD
+};
+
 class Item : public Entity {
-	Item(const string& name, const string& description);
+public:
+	Item(const string& name, const string& description, Room* initRoom);
 	virtual ~Item();
+	ItemCategory category;
+	Room* location;
 };
 
 #endif

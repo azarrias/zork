@@ -14,7 +14,7 @@ enum EntityType
 	EXIT,
 	ROOM,
 	ITEM,
-	NPC,
+	NPCHAR,
 	PLAYER
 };
 

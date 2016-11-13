@@ -2,6 +2,7 @@
 #include "globals.h"
 #include <iostream>
 #include "Exit.h"
+#include "Item.h"
 
 using namespace std;
 
@@ -19,6 +20,12 @@ void Room::look() const
 	cout << "   " << stBold << stBgWhite << stFgBlue;
 	cout << " " << getName() << " \n" << stReset;
 	cout  << stBold << stFgBlue << getDescription() << "\n";
+	// Display NPCs
+	for (Entity* const element : container) {
+		if (element->type == NPCHAR) {
+			cout << "There is a " << element->getName() << " in here.\n" << element->getDescription() << "\n";
+		}
+	}
 	// Display exits
 	for (Entity* const element : container) {
 		if (element->type == EXIT) {
@@ -30,6 +37,16 @@ void Room::look() const
 			// Otherwise, print it the other way around
 			else
 				cout << getOppositeDirection(roomExit->direction) << "\n";
+		}
+	}
+	// Diplay items
+	for (Entity* const element : container) {
+		if (element->type == ITEM) {
+			Item* item = ((Item*)element);
+			if (item->category == WEAPON) {
+				cout << "A " << item->getName() << " is laying on the floor.\n";
+			}
+			
 		}
 	}
 }

@@ -2,7 +2,10 @@
 #include "Room.h"
 #include "Player.h"
 #include "Exit.h"
+#include "NPC.h"
 #include "globals.h"
+#include "Weapon.h"
+#include "Creature.h"
 #include <vector>
 #include <string>
 #include <iostream>
@@ -131,8 +134,14 @@ World::World()
 	entities.push_back(tunnel2_tunnel3);
 
 	player = new Player("John Doe", "You have a face that only a mother could love.", cellNo4);
+	NPC* ork = new NPC("ORK", "It is staring at you with a scowl.", cellNo1, 5);
 
 	entities.push_back(player);
+	entities.push_back(ork);
+
+	Weapon* copperDagger = new Weapon("DAGGER", "A dagger, made of copper.", cellNo4, 4, 1);
+
+	entities.push_back(copperDagger);
 
 	score = 0;
 };
@@ -185,7 +194,7 @@ GameState World::parse(vector<string>& vect) {
 				cout << stBold << stFgBlue;
 			}
 			else if (vect.front().compare("TIME") == 0) {
-				unsigned int seconds = (unsigned int) difftime(time(NULL), startTime);
+				unsigned int seconds = (unsigned int)difftime(time(NULL), startTime);
 				cout << stFgYellow << "You have been playing this game for ";
 				if (seconds >= 3600) {
 					cout << seconds / 3600 << " hour(s) ";
@@ -199,6 +208,17 @@ GameState World::parse(vector<string>& vect) {
 				vect.front().compare("DIAGNOSE") == 0) {
 				cout << stBold << stFgBlue << "You are " << player->showStatus() << ".\n";
 			}
+			else if (vect.front().compare("I") == 0 ||
+				vect.front().compare("INVENTORY") == 0) {
+				cout << stBold << stFgBlue;
+				if (player->container.size() > 0) {
+					cout << "You have got:\n";
+					for (Entity* element : player->container) {
+						cout << "- " << element->getName() << "\n";
+					}
+				}
+				else cout << "You haven't got any items in your inventory yet.\n";
+			}
 			else { // GO commands
 				vector<string>::const_iterator it;
 				it = find(validDirections.begin(), validDirections.cend(), vect.front());
@@ -211,9 +231,24 @@ GameState World::parse(vector<string>& vect) {
 			}
 			break;
 		}
+		case 2:
+		{
+			if (vect.front().compare("TAKE") == 0 ||
+				vect.front().compare("GET") == 0) {
+				for (Entity* element : player->location->container) {
+					if (element->type == ITEM && vect[1].compare(element->getName()) == 0) {
+						player->container.push_back(element);
+						player->location->container.remove(element);
+						cout << stBold << stFgBlue << "You take the " << element->getName() << ".\n";
+						break;
+					}
+				}
+			}
+			break;
+		}
 		default:
 		{
-			cout << "I beg your pardon?\n";
+			cout << stBold << stFgBlue << "I beg your pardon?\n";
 		}
 	}
 	return PLAY;
