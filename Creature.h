@@ -6,8 +6,9 @@
 class Room;
 
 class Creature : public Entity {
-public:
+protected:
 	Room* location;
+public:
 	Creature(const string& name, const string& description, Room* initRoom);
 	virtual ~Creature();
 };

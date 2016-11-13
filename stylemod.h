@@ -38,6 +38,8 @@ namespace Style {
 		Code getCode() const { return code; }
 		bool getUseStyles() const { return useSGR; }
 	};
+
+	inline
 	std::ostream& operator<<(std::ostream& os, const Modifier& mod) {
 		if (mod.getUseStyles()) return os << "\033[" << mod.getCode() << "m";
 		else return os;

@@ -13,8 +13,7 @@ public:
 	Direction direction;
 	Room* source;
 	Room* destination;
-	Exit(const string& name, const string& description, const Direction& direction,
-		Room* sourceRoom, Room* destRoom);
+	Exit(const Direction& direction, Room* sourceRoom, Room* destRoom);
 	virtual ~Exit();
 };
 

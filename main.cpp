@@ -1,4 +1,3 @@
-#include "stylemod.h"
 #include "globals.h"
 #include "World.h"
 #include <iostream>
@@ -17,24 +16,47 @@ int main(int argc, char* argv[])
 	}
 	else if (argc == 2) USE_STYLES = false;
 
-	World world;
+	GameState gameState = GameState::START;
+
+	World* world = nullptr;
 	string userInput;
 	// Maybe this should be changed to a list
 	vector<string> tokenizedInput;
 	tokenizedInput.reserve(10);
-	bool userCommand = false;
 
-	Style::Modifier red(Style::FG_RED, USE_STYLES);
-	Style::Modifier bold(Style::BOLD, USE_STYLES);
-	Style::Modifier reset(Style::RESET, USE_STYLES);
+	while (gameState != GameState::END) {
 
-	cout << "Welcome to " << red << bold << GAME_TITLE << "\n" << reset;
-	cout << "> ";
+		switch (gameState)
+		{
+		case START:
+			world = new World();
 
-	while (getline(cin, userInput)) {
-		tokenize(userInput, tokenizedInput);
-		userCommand = parse(tokenizedInput);
-		cout << "> ";
+			cout << stBold << stFgRed << "Welcome to " << stBgRed << stFgYellow << " " GAME_TITLE << " !!! \n\n";
+			cout << stReset << stBold << stFgBlue << "You wake up drooling on the floor of an unfamiliar place.\n";
+			cout << "The touch of the stone-cold floor tiles and the bad taste in your mouth\n";
+			cout << "make you feel sick. As you slowly regain consciousness, you try to figure\n"; 
+			cout << "everything out...but nothing comes up and eventually you realize that you\n";
+		    cout << "have lost your memories.\nYou aren't even fully aware of who you are anymore.\n";
+			cout << "What to do ? Where to go ?\n";
+			cout << "You are determined to find answers to all these questions...\n\n";
+
+			gameState = PLAY;
+			userInput = "LOOK";
+			break;
+
+		case PLAY:
+			do {
+				tokenize(userInput, tokenizedInput);
+				if ((gameState = world->parse(tokenizedInput)) != PLAY) break;
+				cout << stReset << "\n> ";
+			} while (getline(cin, userInput));
+			if (gameState == START) {
+				delete world;
+			}
+			cout << stReset;
+			break;
+		}
+
 	}
 
 	return 0;
