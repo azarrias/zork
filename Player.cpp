@@ -6,7 +6,7 @@
 using namespace std;
 
 Player::Player(const string& name, const string& description, Room* initRoom)
-	: Creature(name, description, initRoom) 
+	: Creature(name, description, initRoom, rollDice(1, 6) + 4)
 {
 	type = PLAYER;
 }
@@ -28,7 +28,7 @@ const bool Player::go(const Direction& dir)
 				location = roomExit->destination;
 				return true;
 			}
-			else if (getOppositeDirection(roomExit->direction) == dir) {
+			else if (location == roomExit->destination && getOppositeDirection(roomExit->direction) == dir) {
 				location = roomExit->source;
 				return true;
 			}

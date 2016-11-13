@@ -4,6 +4,7 @@
 #include "globals.h"
 #include <vector>
 #include <string>
+#include <time.h>
 
 using namespace std;
 
@@ -15,6 +16,7 @@ private:
 	unsigned int score;
 	vector<Entity*> entities;
 	Player* player;
+	const time_t startTime;
 public:
 	World();
 	~World();

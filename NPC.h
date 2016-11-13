@@ -5,7 +5,7 @@
 
 class NPC : public Creature {
 public:
-	NPC(const string& name, const string& description, Room* initRoom);
+	NPC(const string& name, const string& description, Room* initRoom, unsigned char hitPoints);
 	virtual ~NPC();
 };
 
