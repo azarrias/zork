@@ -77,14 +77,14 @@ World::World()
 	entities.push_back(tunnel2);
 	entities.push_back(tunnel3);
 
-	Exit* cellNo1_Corridor = new Exit(Direction::S, cellNo1, corridor1);
-	Exit* cellNo2_Corridor = new Exit(Direction::N, cellNo2, corridor1);
-	Exit* cellNo3_Corridor = new Exit(Direction::S, cellNo3, corridor2);
-	Exit* cellNo4_Corridor = new Exit(Direction::N, cellNo4, corridor2);
-	Exit* cellNo5_Corridor = new Exit(Direction::S, cellNo5, corridor3);
-	Exit* cellNo6_Corridor = new Exit(Direction::N, cellNo6, corridor3);
-	Exit* cellNo7_Corridor = new Exit(Direction::S, cellNo7, corridor4);
-	Exit* cellNo8_Corridor = new Exit(Direction::N, cellNo8, corridor4);
+	Exit* cellNo1_Corridor = new Exit("There is a Door to the ", Direction::S, cellNo1, corridor1);
+	Exit* cellNo2_Corridor = new Exit("There is a Door to the ", Direction::N, cellNo2, corridor1);
+	Exit* cellNo3_Corridor = new Exit("There is a Door to the ", Direction::S, cellNo3, corridor2);
+	Exit* cellNo4_Corridor = new Exit("There is a Door to the ", Direction::N, cellNo4, corridor2);
+	Exit* cellNo5_Corridor = new Exit("There is a Door to the ", Direction::S, cellNo5, corridor3);
+	Exit* cellNo6_Corridor = new Exit("There is a Door to the ", Direction::N, cellNo6, corridor3);
+	Exit* cellNo7_Corridor = new Exit("There is a Door to the ", Direction::S, cellNo7, corridor4);
+	Exit* cellNo8_Corridor = new Exit("There is a Door to the ", Direction::N, cellNo8, corridor4);
 
 	entities.push_back(cellNo1_Corridor);
 	entities.push_back(cellNo2_Corridor);
@@ -95,27 +95,27 @@ World::World()
 	entities.push_back(cellNo7_Corridor);
 	entities.push_back(cellNo8_Corridor);
 
-	Exit* corridor1_Corridor2 = new Exit(Direction::E, corridor1, corridor2);
-	Exit* corridor2_Corridor3 = new Exit(Direction::E, corridor2, corridor3);
-	Exit* corridor3_Corridor4 = new Exit(Direction::E, corridor3, corridor4);
+	Exit* corridor1_Corridor2 = new Exit("The corridor has a path going to the ", Direction::E, corridor1, corridor2);
+	Exit* corridor2_Corridor3 = new Exit("The corridor has a path going to the ", Direction::E, corridor2, corridor3);
+	Exit* corridor3_Corridor4 = new Exit("The corridor has a path going to the ", Direction::E, corridor3, corridor4);
 
 	entities.push_back(corridor1_Corridor2);
 	entities.push_back(corridor2_Corridor3);
 	entities.push_back(corridor3_Corridor4);
 
-	Exit* corridor4_security = new Exit(Direction::E, corridor4, securityCabin);
-	Exit* security_maintenance = new Exit(Direction::N, securityCabin, maintenanceRoom);
-	Exit* security_staff = new Exit(Direction::S, securityCabin, staffRoom);
+	Exit* corridor4_security = new Exit("There is a Door to the ", Direction::E, corridor4, securityCabin);
+	Exit* security_maintenance = new Exit("There is a Door to the ", Direction::N, securityCabin, maintenanceRoom);
+	Exit* security_staff = new Exit("There is a Door to the ", Direction::S, securityCabin, staffRoom);
 
 	entities.push_back(corridor4_security);
 	entities.push_back(security_maintenance);
 	entities.push_back(security_staff);
 
-	Exit* security_lobby = new Exit(Direction::E, securityCabin, lobby);
-	Exit* lobby_hallway = new Exit(Direction::U, lobby, hallway);
-	Exit* hallway_office = new Exit(Direction::N, hallway, office);
-	Exit* lobby_entrance = new Exit(Direction::E, lobby, entrance);
-	Exit* lobby_infirmary = new Exit(Direction::S, lobby, infirmary);
+	Exit* security_lobby = new Exit("There is a Door to the ", Direction::E, securityCabin, lobby);
+	Exit* lobby_hallway = new Exit("There is a Spiral staircase ", Direction::U, lobby, hallway);
+	Exit* hallway_office = new Exit("There is a Door to the ", Direction::N, hallway, office);
+	Exit* lobby_entrance = new Exit("There is a Door to the ", Direction::E, lobby, entrance);
+	Exit* lobby_infirmary = new Exit("There is a Door to the ", Direction::S, lobby, infirmary);
 
 	entities.push_back(security_lobby);
 	entities.push_back(lobby_hallway);
@@ -123,11 +123,11 @@ World::World()
 	entities.push_back(lobby_entrance);
 	entities.push_back(lobby_infirmary);
 
-	Exit* infirmary_secret = new Exit(Direction::S, infirmary, secretChamber);
-	Exit* secret_passage = new Exit(Direction::W, secretChamber, darkPassage);
-	Exit* passage_tunnel1 = new Exit(Direction::W, darkPassage, tunnel1);
-	Exit* tunnel1_tunnel2 = new Exit(Direction::W, tunnel1, tunnel2);
-	Exit* tunnel2_tunnel3 = new Exit(Direction::W, tunnel2, tunnel3);
+	Exit* infirmary_secret = new Exit("There is a Door to the ", Direction::S, infirmary, secretChamber);
+	Exit* secret_passage = new Exit("There is a Door to the ", Direction::W, secretChamber, darkPassage);
+	Exit* passage_tunnel1 = new Exit("There is a Door to the ", Direction::W, darkPassage, tunnel1);
+	Exit* tunnel1_tunnel2 = new Exit("The tunnel has a path going to the  ", Direction::W, tunnel1, tunnel2);
+	Exit* tunnel2_tunnel3 = new Exit("The tunnel has a path going to the ", Direction::W, tunnel2, tunnel3);
 
 	entities.push_back(infirmary_secret);
 	entities.push_back(secret_passage);
@@ -136,13 +136,13 @@ World::World()
 	entities.push_back(tunnel2_tunnel3);
 
 	player = new Player("PLAYER", "You have a face that only a mother could love.", cellNo4);
-	NPC* ork = new NPC("ORK", "It is staring at you with a scowl.", cellNo1, 5);
+	NPC* ork = new NPC("ORK", "The ORK is staring at you with a scowl.", cellNo1, 5);
 
 	entities.push_back(player);
 	entities.push_back(ork);
 
-	Weapon* axe = new Weapon("AXE", "An axe, made of an axe.", cellNo1, 6, 1);
-	Weapon* copperDagger = new Weapon("DAGGER", "A dagger, made of copper.", cellNo4, 4, 1);
+	Weapon* axe = new Weapon("AXE", "The AXE edge looks sharp.", cellNo1, 6, 1);
+	Weapon* copperDagger = new Weapon("DAGGER", "The DAGGER is made of copper.", cellNo4, 4, 1);
 
 	entities.push_back(axe);
 	entities.push_back(copperDagger);
@@ -150,7 +150,7 @@ World::World()
 	ork->take("AXE");
 	ork->equip("AXE");
 
-	Container* chest = new Container("CHEST", "A closed chest.", cellNo4);
+	Container* chest = new Container("CHEST", "The CHEST is quite big...you wonder if it will be full of treasures.", cellNo4);
 
 	score = 0;
 };
@@ -165,7 +165,7 @@ World::~World()
 
 GameState World::parse(vector<string>& vect) {
 	if (vect.size() == 0) return PLAY;
-	// if present, discard the GO keyword
+	// if present, discard the "optional" GO keyword
 	if (vect.front().compare("GO") == 0)
 		vect.erase(vect.begin());
 	switch (vect.size()) {
@@ -259,17 +259,24 @@ GameState World::parse(vector<string>& vect) {
 					}
 				}
 			}
+			if (vect.front().compare("LOOK") == 0) {
+				cout << stBold << stFgBlue;
+				if (player->look(vect[1]) == false)
+					cout << "What is it that you want to look?";
+				cout << "\n";
+			}
 			break;
 		}
 		case 4:
 		{
-			if (vect.front().compare("PUT") == 0 && vect[2].compare("IN") == 0) {
+			if ((vect.front().compare("PUT") == 0 || vect.front().compare("DROP")) && 
+				(vect[2].compare("IN") == 0 || vect[2].compare("INTO") == 0)) {
 				cout << stBold << stFgBlue;
 				if (player->put(vect[1], vect[3])) {
 					cout << "You put the " << vect[1] << " in the " << vect[3] << ".\n";
 				}
 				else
-					cout << "I'm afraid you can't put that in there.\n";
+					cout << "I'm afraid that's not possible.\n";
 			}
 			break;
 		}
@@ -281,7 +288,7 @@ GameState World::parse(vector<string>& vect) {
 	if (player->currentHitPoints <= 0) {
 		cout << stFgYellow << "\nYou were playing this game for ";
 		displayTime();
-		cout << stFgYellow << ".\nYour score was " << score << ".\n";
+		cout << stFgYellow << "Your score was " << score << ".\n";
 		cout << "Press ENTER key to restart...\n";
 		cin.get();
 		return START;

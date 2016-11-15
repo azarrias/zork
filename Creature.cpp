@@ -40,7 +40,8 @@ const string Creature::getStatus() const {
 
 const bool Creature::take(const string& item) {
 	for (Entity* element : this->location->container) {
-		if (element->type == ITEM && item.compare(element->getName()) == 0) {
+		if (element->type == ITEM && item.compare(element->getName()) == 0
+			&& ((Item*)element)->category != CONTAINER) {
 			this->container.push_back(element);
 			this->location->container.remove(element);
 			return true;
@@ -101,12 +102,14 @@ void Creature::attack(Creature* enemy) const {
 			cout << "The " << enemy->getName() << " drops dead.\n";
 			for (Entity* element : enemy->container) {
 				location->container.push_back(element);
+				cout << element->getName() << " falls to the ground.\n";
 			}
+			enemy->container.clear();
 			enemy->description = "It is dead.";
 		}
 	}
 	else {
-		cout << "You can't kill what's already dead...unless they're zombies ¬¬'.\n";
+		cout << "You can't kill what's already dead...unless they're zombies :P.\n";
 	}
 }
 

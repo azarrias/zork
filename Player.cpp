@@ -20,6 +20,24 @@ void Player::look() const
 	location->look();
 }
 
+bool Player::look(const string& entityStr) const {
+	for (Entity* element : this->location->container) {
+		if (entityStr.compare(element->getName()) == 0) {
+			if (Creature* creature = dynamic_cast<Creature*>(element)) {
+				cout << creature->getDescription();
+			if (creature->getStatus().compare("DEAD") != 0)
+				cout << "\nIt is " << creature->getStatus() << ".";
+				return true;
+			}
+			else if (Item* item = dynamic_cast<Item*>(element)) {
+				cout << item->getDescription();
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
 const bool Player::go(const Direction& dir)
 {
 	for (Entity* const element : location->container) {

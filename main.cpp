@@ -31,8 +31,11 @@ int main(int argc, char* argv[])
 		case START:
 			world = new World();
 
-			cout << stBold << stFgRed << "Welcome to " << stBgRed << stFgYellow << " " GAME_TITLE << " !!! ";
-			cout << stReset << "\n\n" << stBold << stFgBlue << "You wake up drooling on the floor of an unfamiliar place.\n";
+			cout << stBold << stFgRed << "##############################################\n";
+			cout << "##  Welcome to " << stBgRed << stFgYellow << " " GAME_TITLE << " !!! ";
+			cout << stReset << stBold << stFgRed << "  ##\n";
+			cout << "##############################################" << stReset << "\n\n" << stBold << stFgBlue;
+			cout << "You wake up drooling on the floor of an unfamiliar place.\n";
 			cout << "The touch of the stone-cold floor tiles and the bad taste in your mouth\n";
 			cout << "make you feel sick. As you slowly regain consciousness, you try to figure\n"; 
 			cout << "everything out...but nothing comes up and eventually you realize that you\n";
@@ -56,7 +59,6 @@ int main(int argc, char* argv[])
 			cout << stReset;
 			break;
 		}
-
 	}
 
 	return 0;

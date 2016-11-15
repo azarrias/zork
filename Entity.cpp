@@ -16,7 +16,7 @@ const string Entity::getDescription() const {
 	return description;
 }
 
-void Entity::look() const {
+/*void Entity::look() const {
 	cout << getName() << "\n";
 	cout << getDescription() << "\n";
-}
+}*/

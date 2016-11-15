@@ -29,7 +29,7 @@ public:
 	virtual ~Entity();
 	const string getName() const;
 	const string getDescription() const;
-	virtual void look() const;
+	//virtual void look() const;
 	//virtual void display() const = 0;
 	//virtual void update() = 0;
 };
