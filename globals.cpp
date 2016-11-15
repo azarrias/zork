@@ -8,16 +8,27 @@
 #include <iostream>
 using namespace std;
 
-bool USE_STYLES = true;
-Style::Modifier stFgRed(Style::FG_RED, USE_STYLES);
-Style::Modifier stFgBlue(Style::FG_BLUE, USE_STYLES);
-Style::Modifier stFgYellow(Style::FG_YELLOW, USE_STYLES);
-Style::Modifier stBold(Style::BOLD, USE_STYLES);
-Style::Modifier stReset(Style::RESET, USE_STYLES);
-Style::Modifier stBgWhite(Style::BG_LIGHT_GRAY, USE_STYLES);
-Style::Modifier stBgCyan(Style::BG_CYAN, USE_STYLES);
-Style::Modifier stBgRed(Style::BG_RED, USE_STYLES);
-Style::Modifier stBgYellow(Style::BG_YELLOW, USE_STYLES);
+Style::Modifier stFgRed(Style::FG_RED);
+Style::Modifier stFgBlue(Style::FG_BLUE);
+Style::Modifier stFgYellow(Style::FG_YELLOW);
+Style::Modifier stBold(Style::BOLD);
+Style::Modifier stReset(Style::RESET);
+Style::Modifier stBgWhite(Style::BG_LIGHT_GRAY);
+Style::Modifier stBgCyan(Style::BG_CYAN);
+Style::Modifier stBgRed(Style::BG_RED);
+Style::Modifier stBgYellow(Style::BG_YELLOW);
+
+void setStyles(bool useStyles) {
+	stFgRed.setUseStyles(useStyles);
+	stFgBlue.setUseStyles(useStyles);
+	stFgYellow.setUseStyles(useStyles);
+	stBold.setUseStyles(useStyles);
+	stReset.setUseStyles(useStyles);
+	stBgWhite.setUseStyles(useStyles);
+	stBgCyan.setUseStyles(useStyles);
+	stBgRed.setUseStyles(useStyles);
+	stBgYellow.setUseStyles(useStyles);
+}
 
 void tokenize(const string& s, vector<string>& vect) {
 	if (vect.size() > 0) vect.clear();

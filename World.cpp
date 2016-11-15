@@ -6,6 +6,7 @@
 #include "globals.h"
 #include "Weapon.h"
 #include "Creature.h"
+#include "Item.h"
 #include <vector>
 #include <string>
 #include <iostream>
@@ -133,15 +134,20 @@ World::World()
 	entities.push_back(tunnel1_tunnel2);
 	entities.push_back(tunnel2_tunnel3);
 
-	player = new Player("John Doe", "You have a face that only a mother could love.", cellNo4);
+	player = new Player("PLAYER", "You have a face that only a mother could love.", cellNo4);
 	NPC* ork = new NPC("ORK", "It is staring at you with a scowl.", cellNo1, 5);
 
 	entities.push_back(player);
 	entities.push_back(ork);
 
+	Weapon* axe = new Weapon("AXE", "An axe, made of an axe.", cellNo1, 6, 1);
 	Weapon* copperDagger = new Weapon("DAGGER", "A dagger, made of copper.", cellNo4, 4, 1);
 
+	entities.push_back(axe);
 	entities.push_back(copperDagger);
+
+	ork->take("AXE");
+	ork->equip("AXE");
 
 	score = 0;
 };
@@ -206,7 +212,7 @@ GameState World::parse(vector<string>& vect) {
 			}
 			else if (vect.front().compare("STATUS") == 0 ||
 				vect.front().compare("DIAGNOSE") == 0) {
-				cout << stBold << stFgBlue << "You are " << player->showStatus() << ".\n";
+				cout << stBold << stFgBlue << "You are " << player->getStatus() << ".\n";
 			}
 			else if (vect.front().compare("I") == 0 ||
 				vect.front().compare("INVENTORY") == 0) {
@@ -214,7 +220,11 @@ GameState World::parse(vector<string>& vect) {
 				if (player->container.size() > 0) {
 					cout << "You have got:\n";
 					for (Entity* element : player->container) {
-						cout << "- " << element->getName() << "\n";
+						cout << "- " << element->getName();
+							if (element->type == ITEM && ((Item*)element)->category == WEAPON
+								&& ((Weapon*)element) == player->equippedWeapon)
+								cout << " (equipped)";
+						cout << "\n";
 					}
 				}
 				else cout << "You haven't got any items in your inventory.\n";
@@ -235,14 +245,7 @@ GameState World::parse(vector<string>& vect) {
 		{
 			if (vect.front().compare("TAKE") == 0 ||
 				vect.front().compare("GET") == 0) {
-				for (Entity* element : player->location->container) {
-					if (element->type == ITEM && vect[1].compare(element->getName()) == 0) {
-						player->container.push_back(element);
-						player->location->container.remove(element);
-						cout << stBold << stFgBlue << "You take the " << element->getName() << ".\n";
-						break;
-					}
-				}
+				player->take(vect[1]);
 			}
 			if (vect.front().compare("DROP") == 0) {
 				for (Entity* element : player->container) {
@@ -255,6 +258,22 @@ GameState World::parse(vector<string>& vect) {
 					}
 				}
 			}
+			if (vect.front().compare("EQUIP") == 0) {
+				if (player->equip(vect[1]))
+					cout << stBold << stFgBlue << "You equip the " << vect[1] << ".\n";
+				else
+					cout << stBold << stFgBlue << "You can't equip that.\n";
+			}
+			if (vect.front().compare("ATTACK") == 0) {
+				for (Entity* element : player->location->container) {
+					if (element->type == NPCHAR && vect[1].compare(element->getName()) == 0) {
+						player->attack((Creature*)element);
+						if(((Creature*)element)->currentHitPoints > 0)
+							((Creature*)element)->attack(player);
+						break;
+					}
+				}
+			}
 			break;
 		}
 		default:
@@ -262,5 +281,11 @@ GameState World::parse(vector<string>& vect) {
 			cout << stBold << stFgBlue << "I beg your pardon?\n";
 		}
 	}
-	return PLAY;
+	if (player->currentHitPoints <= 0) {
+		cout << stFgYellow << "\nYour score was " << score << ".\n";
+		cout << "Press ENTER key to restart...\n";
+		cin.get();
+		return START;
+	}
+	else return PLAY;
 }

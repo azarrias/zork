@@ -12,7 +12,7 @@
 using namespace std;
 
 #define GAME_TITLE "In the depths of Zork"
-extern bool USE_STYLES;
+
 extern Style::Modifier stFgRed;
 extern Style::Modifier stFgBlue;
 extern Style::Modifier stFgYellow;
@@ -22,6 +22,8 @@ extern Style::Modifier stBgWhite;
 extern Style::Modifier stBgCyan;
 extern Style::Modifier stBgRed;
 extern Style::Modifier stBgYellow;
+
+void setStyles(bool useStyles);
 
 // The order of enum values is important here, 
 // to be able to calculate opposite directions

@@ -18,7 +18,7 @@ Room::~Room()
 void Room::look() const
 {
 	cout << "   " << stBold << stBgWhite << stFgBlue;
-	cout << " " << getName() << " \n" << stReset;
+	cout << " " << getName() << " " << stReset << "\n";
 	cout  << stBold << stFgBlue << getDescription() << "\n";
 	// Display NPCs
 	for (Entity* const element : container) {
@@ -33,10 +33,11 @@ void Room::look() const
 			cout << "There is an exit to the ";
 			// If this room is the source room print the exit in the regular order
 			if (this == roomExit->source)
-				cout << roomExit->direction << "\n";
+				cout << roomExit->direction;
 			// Otherwise, print it the other way around
 			else
-				cout << getOppositeDirection(roomExit->direction) << "\n";
+				cout << getOppositeDirection(roomExit->direction);
+			cout << ".\n";
 		}
 	}
 	// Diplay items

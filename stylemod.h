@@ -37,6 +37,7 @@ namespace Style {
 			: code(pCode), useSGR(show){}
 		Code getCode() const { return code; }
 		bool getUseStyles() const { return useSGR; }
+		void setUseStyles(bool useStyles) { useSGR = useStyles; }
 	};
 
 	inline
