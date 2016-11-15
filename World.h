@@ -21,6 +21,7 @@ public:
 	World();
 	~World();
 	GameState parse(vector<string>& vect);
+	void displayTime() const;
 };
 
 #endif

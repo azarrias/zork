@@ -17,9 +17,9 @@ public:
 	const string Creature::getStatus() const;
 	Room* location;
 	Weapon* equippedWeapon;
-	void take(const string& item);
+	bool take(const string& item);
 	//void take(const Item* item);
-	bool Creature::equip(const string& item);
+	bool equip(const string& item);
 	void attack(Creature* enemy) const;
 	char currentHitPoints;
 };

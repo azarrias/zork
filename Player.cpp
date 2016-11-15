@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Room.h"
 #include "Exit.h"
+#include "Item.h"
 #include <iostream>
 
 using namespace std;
@@ -33,6 +34,22 @@ const bool Player::go(const Direction& dir)
 				return true;
 			}
 		}
+	}
+	return false;
+}
+
+const bool Player::showInventory() const {
+	if (this->container.size() > 0) {
+		cout << stBold << stFgBlue;
+		cout << "You have got:\n";
+		for (Entity* element : this->container) {
+			cout << "- " << element->getName();
+			if (element->type == ITEM && ((Item*)element)->category == WEAPON
+				&& ((Weapon*)element) == this->equippedWeapon)
+				cout << " (equipped)";
+			cout << "\n";
+		}
+		return true;
 	}
 	return false;
 }

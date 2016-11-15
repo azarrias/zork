@@ -200,15 +200,8 @@ GameState World::parse(vector<string>& vect) {
 				cout << stBold << stFgBlue;
 			}
 			else if (vect.front().compare("TIME") == 0) {
-				unsigned int seconds = (unsigned int)difftime(time(NULL), startTime);
 				cout << stFgYellow << "You have been playing this game for ";
-				if (seconds >= 3600) {
-					cout << seconds / 3600 << " hour(s) ";
-				}
-				if (seconds >= 60) {
-					cout << seconds / 60 % 3600 << " minute(s) ";
-				}
-				cout << seconds % 60 << " seconds.\n";
+				displayTime();
 			}
 			else if (vect.front().compare("STATUS") == 0 ||
 				vect.front().compare("DIAGNOSE") == 0) {
@@ -216,18 +209,9 @@ GameState World::parse(vector<string>& vect) {
 			}
 			else if (vect.front().compare("I") == 0 ||
 				vect.front().compare("INVENTORY") == 0) {
-				cout << stBold << stFgBlue;
-				if (player->container.size() > 0) {
-					cout << "You have got:\n";
-					for (Entity* element : player->container) {
-						cout << "- " << element->getName();
-							if (element->type == ITEM && ((Item*)element)->category == WEAPON
-								&& ((Weapon*)element) == player->equippedWeapon)
-								cout << " (equipped)";
-						cout << "\n";
-					}
+				if (player->showInventory() == false) {
+					cout << "You haven't got any items in your inventory.\n";
 				}
-				else cout << "You haven't got any items in your inventory.\n";
 			}
 			else { // GO commands
 				vector<string>::const_iterator it;
@@ -245,7 +229,11 @@ GameState World::parse(vector<string>& vect) {
 		{
 			if (vect.front().compare("TAKE") == 0 ||
 				vect.front().compare("GET") == 0) {
-				player->take(vect[1]);
+				cout << stBold << stFgBlue;
+				if (player->take(vect[1]))
+					cout << "You take the " << vect[1] << ".\n";
+				else cout << "I understood up to the TAKE part.\n";
+
 			}
 			if (vect.front().compare("DROP") == 0) {
 				for (Entity* element : player->container) {
@@ -259,10 +247,10 @@ GameState World::parse(vector<string>& vect) {
 				}
 			}
 			if (vect.front().compare("EQUIP") == 0) {
-				if (player->equip(vect[1]))
-					cout << stBold << stFgBlue << "You equip the " << vect[1] << ".\n";
-				else
-					cout << stBold << stFgBlue << "You can't equip that.\n";
+				cout << stBold << stFgBlue;
+				if (player->equip(vect[1])) 
+					cout << "You equip the " << vect[1] << ".\n";
+				else cout << "I understood up to the EQUIP part.\n";
 			}
 			if (vect.front().compare("ATTACK") == 0) {
 				for (Entity* element : player->location->container) {
@@ -282,10 +270,23 @@ GameState World::parse(vector<string>& vect) {
 		}
 	}
 	if (player->currentHitPoints <= 0) {
-		cout << stFgYellow << "\nYour score was " << score << ".\n";
+		cout << stFgYellow << "\nYou were playing this game for ";
+		displayTime();
+		cout << stFgYellow << ".\nYour score was " << score << ".\n";
 		cout << "Press ENTER key to restart...\n";
 		cin.get();
 		return START;
 	}
 	else return PLAY;
+}
+
+void World::displayTime() const {
+	unsigned int seconds = (unsigned int)difftime(time(NULL), startTime);
+	if (seconds >= 3600) {
+		cout << seconds / 3600 << " hour(s) ";
+	}
+	if (seconds >= 60) {
+		cout << seconds / 60 % 3600 << " minute(s) ";
+	}
+	cout << seconds % 60 << " seconds.\n";
 }

@@ -9,6 +9,7 @@ public:
 	virtual ~Player();
 	void look() const;
 	const bool go(const Direction& dir);
+	const bool showInventory() const;
 };
 
 #endif

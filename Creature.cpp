@@ -37,16 +37,15 @@ const string Creature::getStatus() const {
 	else return "DEAD";
 }
 
-void Creature::take(const string& item) {
+bool Creature::take(const string& item) {
 	for (Entity* element : this->location->container) {
 		if (element->type == ITEM && item.compare(element->getName()) == 0) {
 			this->container.push_back(element);
 			this->location->container.remove(element);
-			if (type == PLAYER)
-				cout << stBold << stFgBlue << "You take the " << element->getName() << ".\n";
-			break;
+			return true;
 		}
 	}
+	return false;
 }
 
 bool Creature::equip(const string& item) {
@@ -54,7 +53,6 @@ bool Creature::equip(const string& item) {
 		if (element->type == ITEM && ((Item*)element)->category == WEAPON &&
 			element->getName() == item) {
 			this->equippedWeapon = (Weapon*)element;
-			if (type == PLAYER)
 			return true;
 		}
 	}
