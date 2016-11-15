@@ -9,7 +9,8 @@ enum ItemCategory
 {
 	WEAPON,
 	DRINK,
-	FOOD
+	FOOD,
+	CONTAINER
 };
 
 class Item : public Entity {

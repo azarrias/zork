@@ -6,6 +6,7 @@
 #include "globals.h"
 #include "Weapon.h"
 #include "Creature.h"
+#include "Container.h"
 #include "Item.h"
 #include <vector>
 #include <string>
@@ -149,6 +150,8 @@ World::World()
 	ork->take("AXE");
 	ork->equip("AXE");
 
+	Container* chest = new Container("CHEST", "A closed chest.", cellNo4);
+
 	score = 0;
 };
 
@@ -232,25 +235,19 @@ GameState World::parse(vector<string>& vect) {
 				cout << stBold << stFgBlue;
 				if (player->take(vect[1]))
 					cout << "You take the " << vect[1] << ".\n";
-				else cout << "I understood up to the TAKE part.\n";
-
+				else cout << "You can't take that.\n";
 			}
 			if (vect.front().compare("DROP") == 0) {
-				for (Entity* element : player->container) {
-					if (vect[1].compare(element->getName()) == 0) {
-						player->location->container.push_back(element);
-						player->container.remove(element);
-						cout << stBold << stFgBlue << "You drop the " << element->getName(); 
-						cout << " on the floor.\n";
-						break;
-					}
-				}
+				cout << stBold << stFgBlue;
+				if (player->drop(vect[1]))
+					cout << "You drop the " << vect[1] << " on the floor.\n";
+				else cout << "You can't drop what you haven't got.\n";
 			}
 			if (vect.front().compare("EQUIP") == 0) {
 				cout << stBold << stFgBlue;
 				if (player->equip(vect[1])) 
 					cout << "You equip the " << vect[1] << ".\n";
-				else cout << "I understood up to the EQUIP part.\n";
+				else cout << "You can't equip that.\n";
 			}
 			if (vect.front().compare("ATTACK") == 0) {
 				for (Entity* element : player->location->container) {
@@ -261,6 +258,18 @@ GameState World::parse(vector<string>& vect) {
 						break;
 					}
 				}
+			}
+			break;
+		}
+		case 4:
+		{
+			if (vect.front().compare("PUT") == 0 && vect[2].compare("IN") == 0) {
+				cout << stBold << stFgBlue;
+				if (player->put(vect[1], vect[3])) {
+					cout << "You put the " << vect[1] << " in the " << vect[3] << ".\n";
+				}
+				else
+					cout << "I'm afraid you can't put that in there.\n";
 			}
 			break;
 		}

@@ -17,10 +17,12 @@ public:
 	const string Creature::getStatus() const;
 	Room* location;
 	Weapon* equippedWeapon;
-	bool take(const string& item);
+	const bool take(const string& item);
+	const bool drop(const string& item);
 	//void take(const Item* item);
-	bool equip(const string& item);
+	const bool equip(const string& item);
 	void attack(Creature* enemy) const;
+	const bool put(const string& inventoryItem, const string& itemContainer);
 	char currentHitPoints;
 };
 

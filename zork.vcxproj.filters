@@ -48,6 +48,9 @@
     <ClCompile Include="Weapon.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
+    <ClCompile Include="Container.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="globals.h">
@@ -81,6 +84,9 @@
       <Filter>Archivos de código fuente</Filter>
     </ClInclude>
     <ClInclude Include="Weapon.h">
+      <Filter>Archivos de código fuente</Filter>
+    </ClInclude>
+    <ClInclude Include="Container.h">
       <Filter>Archivos de código fuente</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,6 +1,7 @@
 #include "Creature.h"
 #include "Weapon.h"
 #include "Room.h"
+#include "Container.h"
 #include <iostream>
 
 Creature::Creature(const string& name, const string& description, Room* initRoom, unsigned char hitPoints)
@@ -37,7 +38,7 @@ const string Creature::getStatus() const {
 	else return "DEAD";
 }
 
-bool Creature::take(const string& item) {
+const bool Creature::take(const string& item) {
 	for (Entity* element : this->location->container) {
 		if (element->type == ITEM && item.compare(element->getName()) == 0) {
 			this->container.push_back(element);
@@ -48,7 +49,20 @@ bool Creature::take(const string& item) {
 	return false;
 }
 
-bool Creature::equip(const string& item) {
+const bool Creature::drop(const string& item) {
+	for (Entity* element : this->container) {
+		if (item.compare(element->getName()) == 0) {
+			this->location->container.push_back(element);
+			this->container.remove(element);
+			cout << "You drop the " << element->getName();
+			cout << " on the floor.\n";
+			return true;
+		}
+	}
+	return false;
+}
+
+const bool Creature::equip(const string& item) {
 	for (Entity* element : this->container) {
 		if (element->type == ITEM && ((Item*)element)->category == WEAPON &&
 			element->getName() == item) {
@@ -62,7 +76,7 @@ bool Creature::equip(const string& item) {
 void Creature::attack(Creature* enemy) const {
 	unsigned short int damage, attackRoll, defendRoll;
 	attackRoll = this->rollDice(1, 10);
-	defendRoll = this->rollDice(1, 8);
+	defendRoll = this->rollDice(1, 6);
 
 	cout << stBold << stFgBlue;
 	if (enemy->currentHitPoints > 0) {
@@ -92,6 +106,25 @@ void Creature::attack(Creature* enemy) const {
 		}
 	}
 	else {
-		cout << "You can't kill what's already dead (unless they're zombies!).\n";
+		cout << "You can't kill what's already dead...unless they're zombies ¬¬'.\n";
 	}
+}
+
+const bool Creature::put(const string& inventoryItemStr, const string& itemContainerStr) {
+	for (Entity* inventoryElement : this->container) {
+		if (inventoryElement->type == ITEM && inventoryItemStr.compare(inventoryElement->getName()) == 0) {
+			for (Entity* roomElement : this->location->container) {
+				if (roomElement->type == ITEM && ((Item*)roomElement)->category == CONTAINER &&
+					itemContainerStr.compare(roomElement->getName()) == 0) {
+					Container* newRecipient = (Container*)roomElement;
+					if (newRecipient->isClosed == false) {
+						this->container.remove(inventoryElement);
+						newRecipient->container.push_back(inventoryElement);
+						return true;
+					}
+				}
+			}
+		}
+	}
+	return false;
 }
