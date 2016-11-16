@@ -2,6 +2,7 @@
 #include "Weapon.h"
 #include "Room.h"
 #include "Container.h"
+#include "Exit.h"
 #include <iostream>
 
 Creature::Creature(const string& name, const string& description, Room* initRoom, unsigned char hitPoints)
@@ -126,6 +127,50 @@ const bool Creature::put(const string& inventoryItemStr, const string& itemConta
 						return true;
 					}
 				}
+			}
+		}
+	}
+	return false;
+}
+
+const bool Creature::open(const Direction& dir) {
+	for (Entity* const element : this->location->container) {
+		if (element->type == EXIT) {
+			Exit* roomExit = ((Exit*)element);
+			if (this->location == roomExit->source && dir == roomExit->direction ||
+				this->location == roomExit->destination && dir == getOppositeDirection(roomExit->direction)) {
+				//there is an exit this way
+				if (roomExit->isDoor == true) {
+					if (roomExit->isOpenDoor == false) {
+						roomExit->isOpenDoor = true;
+						roomExit->updateDoorDescription();
+						return true;
+					}
+					else return false;
+				}
+				else return false;
+			}
+		}
+	}
+	return false;
+}
+
+const bool Creature::close(const Direction& dir) {
+	for (Entity* const element : this->location->container) {
+		if (element->type == EXIT) {
+			Exit* roomExit = ((Exit*)element);
+			if (this->location == roomExit->source && dir == roomExit->direction ||
+				this->location == roomExit->destination && dir == getOppositeDirection(roomExit->direction)) {
+				//there is an exit this way
+				if (roomExit->isDoor == true) {
+					if (roomExit->isOpenDoor == true) {
+						roomExit->isOpenDoor = false;
+						roomExit->updateDoorDescription();
+						return true;
+					}
+					else return false;
+				}
+				else return false;
 			}
 		}
 	}

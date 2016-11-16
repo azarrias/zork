@@ -222,9 +222,9 @@ GameState World::parse(vector<string>& vect) {
 				if (it != validDirections.cend()) {
 					if(player->go(toDirection(vect.front())))
 						player->look();
-					else
-						cout << stBold << stFgBlue << "There is no exit that way...\n";
+					else cout << stBold << stFgBlue << "There is no exit that way...\n";
 				}
+				else cout << stBold << stFgBlue << "That direction is invalid...\n";
 			}
 			break;
 		}
@@ -275,6 +275,26 @@ GameState World::parse(vector<string>& vect) {
 				if (player->take(vect[2]))
 					cout << "You take the " << vect[2] << ".\n";
 				else cout << "You can't take that.\n";
+			}
+			if (vect.front().compare("OPEN") == 0 && vect[2].compare("DOOR") == 0) {
+				vector<string>::const_iterator it;
+				it = find(validDirections.begin(), validDirections.cend(), vect[1]);
+				if (it != validDirections.cend()) {
+					if (player->open(toDirection(vect[1])))
+						cout << "You open the " << vect[1] << " DOOR.\n";
+					else cout << stBold << stFgBlue << "There is no door to be opened in that direction.\n";
+				}
+				else cout << stBold << stFgBlue << "That direction is invalid...\n";
+			}
+			if (vect.front().compare("CLOSE") == 0 && vect[2].compare("DOOR") == 0) {
+				vector<string>::const_iterator it;
+				it = find(validDirections.begin(), validDirections.cend(), vect[1]);
+				if (it != validDirections.cend()) {
+					if (player->close(toDirection(vect[1])))
+						cout << "You close the " << vect[1] << " DOOR.\n";
+					else cout << stBold << stFgBlue << "There is no door to be closed in that direction.\n";
+				}
+				else cout << stBold << stFgBlue << "That direction is invalid...\n";
 			}
 			break;
 		}
