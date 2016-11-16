@@ -11,6 +11,9 @@ This game is based on Zork, which of course implies that:
 * The user controls a PC that moves within that map
 * It has NPCs that interact with your PC
 
+For more information, a list of commands and all you can take a look at the wiki:   
+* https://github.com/azarrias/zork/wiki
+
 ## Play with colors
 The game experience is nicer when playing with colors.
 This is how it looks:   
