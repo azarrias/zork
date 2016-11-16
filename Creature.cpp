@@ -49,6 +49,15 @@ const bool Creature::take(const string& item) {
 			this->location->container.remove(element);
 			return true;
 		}
+		if (((Item*)element)->category && ((Container*)element)->isClosed == false) {
+			for (Entity* subElement : element->container) {
+				if (item.compare(subElement->getName()) == 0) {
+					element->container.remove(subElement);
+					this->container.push_back(subElement);
+					return true;
+				}
+			}
+		}
 	}
 	return false;
 }
@@ -77,7 +86,7 @@ const bool Creature::equip(const string& item) {
 	return false;
 }
 
-void Creature::attack(Creature* enemy) const {
+const bool Creature::attack(Creature* enemy) const {
 	unsigned short int damage, attackRoll, defendRoll;
 	attackRoll = this->rollDice(1, 10);
 	defendRoll = this->rollDice(1, 6);
@@ -109,11 +118,13 @@ void Creature::attack(Creature* enemy) const {
 			}
 			enemy->container.clear();
 			enemy->description = "It is dead.";
+			return true;
 		}
 	}
 	else {
 		cout << "You can't kill what's already dead...unless they're zombies :P.\n";
 	}
+	return false;
 }
 
 const bool Creature::put(const string& inventoryItemStr, const string& itemContainerStr) {

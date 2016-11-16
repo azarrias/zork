@@ -58,9 +58,31 @@ const bool Player::go(const Direction& dir)
 			if (roomExit->isDoor == true && roomExit->isOpenDoor == false &&
 					location == roomExit->source && roomExit->direction == dir ||
 					location == roomExit->destination && getOppositeDirection(roomExit->direction) == dir) {
-				cout << "(You open the door)\n\n";
-				roomExit->isOpenDoor = true;
-				roomExit->updateDoorDescription();
+				if (roomExit->key == nullptr) {
+					cout << "(You open the door)\n\n";
+					roomExit->isOpenDoor = true;
+					roomExit->updateDoorDescription();
+				}
+				else {
+					if (this->container.size() > 0) {
+						for (Entity* const element : this->container) {
+							if (element->type == ITEM && element == roomExit->key)
+							{
+								cout << "(You open the door)\n\n";
+								roomExit->isOpenDoor = true;
+								roomExit->updateDoorDescription();
+							}
+							else {
+								cout << "You need a key for this room\n";
+								return false;
+							}
+						}
+					}
+					else {
+						cout << "You need a key for this room\n";
+						return false;
+					}
+				}
 			}				
 			if (location == roomExit->source && roomExit->direction == dir) {
 				location = roomExit->destination;

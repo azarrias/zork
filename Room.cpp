@@ -64,6 +64,9 @@ void Room::look() const
 					}					
 				}
 			}
+			if (item->category == CONSUMABLE) {
+				cout << "You can see a " << item->getName() << ".\n";
+			}
 		}
 	}
 }

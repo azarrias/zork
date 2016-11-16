@@ -8,6 +8,7 @@
 #include "Creature.h"
 #include "Container.h"
 #include "Item.h"
+#include "Consumable.h"
 #include <vector>
 #include <string>
 #include <iostream>
@@ -104,13 +105,19 @@ World::World()
 	entities.push_back(hallway_office);
 
 	player = new Player("PLAYER", "You have a face that only a mother could love.", cellNo4);
-	NPC* ork = new NPC("ORK", "The ORK is staring at you with a scowl.", cellNo1, 5);
+	NPC* ork = new NPC("ORK", "The ORK is staring at you with a hungry face.", cellNo1, 5);
+	NPC* troll = new NPC("TROLL", "The TROLL is looking at you with a scowl.", cellNo3, 6);
+	Item* keycard = new Item("KEYCARD", "This is a security CARD to gain access to some room", cellNo3);
+	corridor4_security->setKey(keycard);
+
+	troll->take("KEYCARD");
 
 	entities.push_back(player);
 	entities.push_back(ork);
 
 	Weapon* axe = new Weapon("AXE", "The AXE edge looks sharp.", cellNo1, 6, 1);
 	Weapon* copperDagger = new Weapon("DAGGER", "The DAGGER is made of copper.", cellNo4, 4, 1);
+	Weapon* scalpel = new Weapon("SCALPEL", "The SCALPEL is shiny and sharp.", cellNo5, 4, 2);
 
 	entities.push_back(axe);
 	entities.push_back(copperDagger);
@@ -118,8 +125,13 @@ World::World()
 	ork->take("AXE");
 	ork->equip("AXE");
 
-	Container* chest = new Container("CHEST", "The CHEST is quite big...you wonder if it will be full of treasures.", cellNo4);
+	Container* chest = new Container("CHEST", "The CHEST is quite big...you wonder if it will be full of treasures.", maintenanceRoom);
+	Consumable* potion = new Consumable("POTION", "The POTION looks healthy", maintenanceRoom, 4, 1);
+	Consumable* sandwich = new Consumable("SANDWICH", "Not your favorite SANDWICH, but...", staffRoom, 4, 1);
 
+	chest->container.push_back(potion);
+	maintenanceRoom->container.remove(potion);
+	
 	score = 0;
 };
 
@@ -216,7 +228,8 @@ GameState World::parse(vector<string>& vect) {
 			if (vect.front().compare("ATTACK") == 0) {
 				for (Entity* element : player->location->container) {
 					if (element->type == NPCHAR && vect[1].compare(element->getName()) == 0) {
-						player->attack((Creature*)element);
+						if(player->attack((Creature*)element))
+							score += 10;
 						if(((Creature*)element)->currentHitPoints > 0)
 							((Creature*)element)->attack(player);
 						break;
