@@ -77,14 +77,14 @@ World::World()
 	entities.push_back(tunnel2);
 	entities.push_back(tunnel3);
 
-	Exit* cellNo1_Corridor = new Exit("There is a Door to the ", Direction::S, cellNo1, corridor1);
-	Exit* cellNo2_Corridor = new Exit("There is a Door to the ", Direction::N, cellNo2, corridor1);
-	Exit* cellNo3_Corridor = new Exit("There is a Door to the ", Direction::S, cellNo3, corridor2);
-	Exit* cellNo4_Corridor = new Exit("There is a Door to the ", Direction::N, cellNo4, corridor2);
-	Exit* cellNo5_Corridor = new Exit("There is a Door to the ", Direction::S, cellNo5, corridor3);
-	Exit* cellNo6_Corridor = new Exit("There is a Door to the ", Direction::N, cellNo6, corridor3);
-	Exit* cellNo7_Corridor = new Exit("There is a Door to the ", Direction::S, cellNo7, corridor4);
-	Exit* cellNo8_Corridor = new Exit("There is a Door to the ", Direction::N, cellNo8, corridor4);
+	Exit* cellNo1_Corridor = new Exit("There is a Door that leads to the ", Direction::S, cellNo1, corridor1);
+	Exit* cellNo2_Corridor = new Exit("There is a Door that leads to the ", Direction::N, cellNo2, corridor1);
+	Exit* cellNo3_Corridor = new Exit("There is a Door that leads to the ", Direction::S, cellNo3, corridor2);
+	Exit* cellNo4_Corridor = new Exit("There is a Door that leads to the ", Direction::N, cellNo4, corridor2);
+	Exit* cellNo5_Corridor = new Exit("There is a Door that leads to the ", Direction::S, cellNo5, corridor3);
+	Exit* cellNo6_Corridor = new Exit("There is a Door that leads to the ", Direction::N, cellNo6, corridor3);
+	Exit* cellNo7_Corridor = new Exit("There is a Door that leads to the ", Direction::S, cellNo7, corridor4);
+	Exit* cellNo8_Corridor = new Exit("There is a Door that leads to the ", Direction::N, cellNo8, corridor4);
 
 	entities.push_back(cellNo1_Corridor);
 	entities.push_back(cellNo2_Corridor);
@@ -264,6 +264,17 @@ GameState World::parse(vector<string>& vect) {
 				if (player->look(vect[1]) == false)
 					cout << "What is it that you want to look?";
 				cout << "\n";
+			}
+			break;
+		}
+		case 3:
+		{
+			if (vect.front().compare("PICK") == 0 &&
+				vect[1].compare("UP") == 0) {
+				cout << stBold << stFgBlue;
+				if (player->take(vect[2]))
+					cout << "You take the " << vect[2] << ".\n";
+				else cout << "You can't take that.\n";
 			}
 			break;
 		}
