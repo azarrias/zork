@@ -77,14 +77,14 @@ World::World()
 	entities.push_back(tunnel2);
 	entities.push_back(tunnel3);
 
-	Exit* cellNo1_Corridor = new Exit("There is a Door that leads to the ", Direction::S, cellNo1, corridor1);
-	Exit* cellNo2_Corridor = new Exit("There is a Door that leads to the ", Direction::N, cellNo2, corridor1);
-	Exit* cellNo3_Corridor = new Exit("There is a Door that leads to the ", Direction::S, cellNo3, corridor2);
-	Exit* cellNo4_Corridor = new Exit("There is a Door that leads to the ", Direction::N, cellNo4, corridor2);
-	Exit* cellNo5_Corridor = new Exit("There is a Door that leads to the ", Direction::S, cellNo5, corridor3);
-	Exit* cellNo6_Corridor = new Exit("There is a Door that leads to the ", Direction::N, cellNo6, corridor3);
-	Exit* cellNo7_Corridor = new Exit("There is a Door that leads to the ", Direction::S, cellNo7, corridor4);
-	Exit* cellNo8_Corridor = new Exit("There is a Door that leads to the ", Direction::N, cellNo8, corridor4);
+	Exit* cellNo1_Corridor = new Exit(Direction::S, cellNo1, corridor1, true);
+	Exit* cellNo2_Corridor = new Exit(Direction::N, cellNo2, corridor1, true);
+	Exit* cellNo3_Corridor = new Exit(Direction::S, cellNo3, corridor2, true);
+	Exit* cellNo4_Corridor = new Exit(Direction::N, cellNo4, corridor2, true);
+	Exit* cellNo5_Corridor = new Exit(Direction::S, cellNo5, corridor3, true);
+	Exit* cellNo6_Corridor = new Exit(Direction::N, cellNo6, corridor3, true);
+	Exit* cellNo7_Corridor = new Exit(Direction::S, cellNo7, corridor4, true);
+	Exit* cellNo8_Corridor = new Exit(Direction::N, cellNo8, corridor4, true);
 
 	entities.push_back(cellNo1_Corridor);
 	entities.push_back(cellNo2_Corridor);
@@ -95,27 +95,27 @@ World::World()
 	entities.push_back(cellNo7_Corridor);
 	entities.push_back(cellNo8_Corridor);
 
-	Exit* corridor1_Corridor2 = new Exit("The corridor has a path going to the ", Direction::E, corridor1, corridor2);
-	Exit* corridor2_Corridor3 = new Exit("The corridor has a path going to the ", Direction::E, corridor2, corridor3);
-	Exit* corridor3_Corridor4 = new Exit("The corridor has a path going to the ", Direction::E, corridor3, corridor4);
+	Exit* corridor1_Corridor2 = new Exit(Direction::E, corridor1, corridor2, false);
+	Exit* corridor2_Corridor3 = new Exit(Direction::E, corridor2, corridor3, false);
+	Exit* corridor3_Corridor4 = new Exit(Direction::E, corridor3, corridor4, false);
 
 	entities.push_back(corridor1_Corridor2);
 	entities.push_back(corridor2_Corridor3);
 	entities.push_back(corridor3_Corridor4);
 
-	Exit* corridor4_security = new Exit("There is a Door to the ", Direction::E, corridor4, securityCabin);
-	Exit* security_maintenance = new Exit("There is a Door to the ", Direction::N, securityCabin, maintenanceRoom);
-	Exit* security_staff = new Exit("There is a Door to the ", Direction::S, securityCabin, staffRoom);
+	Exit* corridor4_security = new Exit(Direction::E, corridor4, securityCabin, true);
+	Exit* security_maintenance = new Exit(Direction::N, securityCabin, maintenanceRoom, true);
+	Exit* security_staff = new Exit(Direction::S, securityCabin, staffRoom, true);
 
 	entities.push_back(corridor4_security);
 	entities.push_back(security_maintenance);
 	entities.push_back(security_staff);
 
-	Exit* security_lobby = new Exit("There is a Door to the ", Direction::E, securityCabin, lobby);
-	Exit* lobby_hallway = new Exit("There is a Spiral staircase ", Direction::U, lobby, hallway);
-	Exit* hallway_office = new Exit("There is a Door to the ", Direction::N, hallway, office);
-	Exit* lobby_entrance = new Exit("There is a Door to the ", Direction::E, lobby, entrance);
-	Exit* lobby_infirmary = new Exit("There is a Door to the ", Direction::S, lobby, infirmary);
+	Exit* security_lobby = new Exit(Direction::E, securityCabin, lobby, true);
+	Exit* lobby_hallway = new Exit(Direction::U, lobby, hallway, false, false, "There is a Spiral staircase that goes ");
+	Exit* hallway_office = new Exit(Direction::N, hallway, office, true);
+	Exit* lobby_entrance = new Exit(Direction::E, lobby, entrance, true);
+	Exit* lobby_infirmary = new Exit(Direction::S, lobby, infirmary, true);
 
 	entities.push_back(security_lobby);
 	entities.push_back(lobby_hallway);
@@ -123,11 +123,11 @@ World::World()
 	entities.push_back(lobby_entrance);
 	entities.push_back(lobby_infirmary);
 
-	Exit* infirmary_secret = new Exit("There is a Door to the ", Direction::S, infirmary, secretChamber);
-	Exit* secret_passage = new Exit("There is a Door to the ", Direction::W, secretChamber, darkPassage);
-	Exit* passage_tunnel1 = new Exit("There is a Door to the ", Direction::W, darkPassage, tunnel1);
-	Exit* tunnel1_tunnel2 = new Exit("The tunnel has a path going to the  ", Direction::W, tunnel1, tunnel2);
-	Exit* tunnel2_tunnel3 = new Exit("The tunnel has a path going to the ", Direction::W, tunnel2, tunnel3);
+	Exit* infirmary_secret = new Exit(Direction::S, infirmary, secretChamber, true);
+	Exit* secret_passage = new Exit(Direction::W, secretChamber, darkPassage, true);
+	Exit* passage_tunnel1 = new Exit(Direction::W, darkPassage, tunnel1, true);
+	Exit* tunnel1_tunnel2 = new Exit(Direction::W, tunnel1, tunnel2, false);
+	Exit* tunnel2_tunnel3 = new Exit(Direction::W, tunnel2, tunnel3, false);
 
 	entities.push_back(infirmary_secret);
 	entities.push_back(secret_passage);

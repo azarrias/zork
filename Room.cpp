@@ -32,7 +32,6 @@ void Room::look() const
 		if (element->type == EXIT) {
 			Exit* roomExit = ((Exit*)element);
 			cout << roomExit->getDescription();
-			//cout << "There is an exit to the ";
 			// If this room is the source room print the exit in the regular order
 			if (this == roomExit->source)
 				cout << roomExit->direction;

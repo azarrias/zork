@@ -15,9 +15,13 @@ public:
 	Room* source;
 	Room* destination;
 	Item* key;
-	Exit(const string& description, const Direction& direction, Room* sourceRoom, Room* destRoom);
-	void setKey(Item* key);
+	bool isDoor;
+	bool isOpenDoor;
+	Exit(const Direction& direction, Room* sourceRoom, Room* destRoom, bool isDoor, 
+		bool isOpen = false, const string& description="");
 	virtual ~Exit();
+	void setKey(Item* key);
+	void updateDoorDescription();
 };
 
 #endif
