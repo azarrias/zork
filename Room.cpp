@@ -28,17 +28,19 @@ void Room::look() const
 		}
 	}
 	// Display exits
-	for (Entity* const element : container) {
-		if (element->type == EXIT) {
-			Exit* roomExit = ((Exit*)element);
-			cout << roomExit->getDescription();
-			// If this room is the source room print the exit in the regular order
-			if (this == roomExit->source)
-				cout << roomExit->direction;
-			// Otherwise, print it the other way around
-			else
-				cout << getOppositeDirection(roomExit->direction);
-			cout << ".\n";
+	if (this->getName().compare("Office") != 0) {
+		for (Entity* const element : container) {
+			if (element->type == EXIT) {
+				Exit* roomExit = ((Exit*)element);
+				cout << roomExit->getDescription();
+				// If this room is the source room print the exit in the regular order
+				if (this == roomExit->source)
+					cout << roomExit->direction;
+				// Otherwise, print it the other way around
+				else
+					cout << getOppositeDirection(roomExit->direction);
+				cout << ".\n";
+			}
 		}
 	}
 	// Diplay items

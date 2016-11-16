@@ -17,14 +17,14 @@ using namespace std;
 World::World() 
 	: startTime(time(NULL)) {
 
-	Room* cellNo1 = new Room("Cell no. 1", "");
+	Room* cellNo1 = new Room("Cell no. 1", "The smell in this room is so strong that it kinda feels like a vapor sauna.\nQuickly you notice where it comes from.");
 	Room* cellNo2 = new Room("Cell no. 2", "There is another security bed in the center of this room.\nThe following phrase is written repeatedly all over the walls:\nThere is a small mailbox here. But as a matter of fact you can't see any mailbox in here.");
-	Room* cellNo3 = new Room("Cell no. 3", "TBD");
+	Room* cellNo3 = new Room("Cell no. 3", "There is an old mattress on the floor.\nIt looks particularly uncomfortable.");
 	Room* cellNo4 = new Room("Cell no. 4", "The appearance of the room where you woke up gives you the goosebumps.\nIt looks like you might be confined in a jailhouse or mental institution.\nWhy or how that happened is a mystery to you.\nThere is a security bed in the center of the room.\nIt seems as if its safety straps have been forced.\nDid you force them?");
-	Room* cellNo5 = new Room("Cell no. 5", "TBD");
-	Room* cellNo6 = new Room("Cell no. 6", "There are some mortal remains stacked up in a corner.\nSome of the bones don't look human.");
-	Room* cellNo7 = new Room("Cell no. 7", "TBD");
-	Room* cellNo8 = new Room("Cell no. 8", "TBD");
+	Room* cellNo5 = new Room("Cell no. 5", "There is some surgery equipment all made a mess...your guess is that\nsome doctor was performing an operation and had to run away, leaving\nall of this behind.");
+	Room* cellNo6 = new Room("Cell no. 6", "There are some mortal remains stacked up in a corner.\nSome of the bones don't look human...good vibes all around.");
+	Room* cellNo7 = new Room("Cell no. 7", "In the bed of this room, there is a notebook full of handwritten notes.\nYou read the last one:\n\"All the shouting that comes from the cell to the other side is driving\nme even crazier than what got me here. The staff here couldn't care\nless about us...\"\n...the rest of this paper sheet has been ripped off, so this is it.");
+	Room* cellNo8 = new Room("Cell no. 8", "The bed in this room is dirty and full of blood.\nYou don't want to imagine what happened here...but you want out!");
 
 	entities.push_back(cellNo1);
 	entities.push_back(cellNo2);
@@ -35,47 +35,31 @@ World::World()
 	entities.push_back(cellNo7);
 	entities.push_back(cellNo8);
 
-	Room* corridor1 = new Room("Corridor", "This end of the corridor has a small window to the outside.\nIt's made of tempered safety glass so you shouldn't dream about that\nescape route.");
-	Room* corridor2 = new Room("Corridor", "TBD");
-	Room* corridor3 = new Room("Corridor", "TBD");
-	Room* corridor4 = new Room("Corridor", "TBD");
+	Room* corridor1 = new Room("Corridor", "The West end of the corridor has a small window to the outside.\nIt's made of tempered safety glass so you shouldn't dream about that\nescape route.");
+	Room* corridor2 = new Room("Corridor", "You find yourself in a long and narrow corridor that communicates\nmany rooms.");
+	Room* corridor3 = new Room("Corridor", "In this part of the corridor you can see a big room in the distance.");
+	Room* corridor4 = new Room("Corridor", "This is the Eastern endpoint of the corridor.\nIt communicates the cluster of rooms with the rest of the facility.");
 
 	entities.push_back(corridor1);
 	entities.push_back(corridor2);
 	entities.push_back(corridor3);
 	entities.push_back(corridor4);
 
-	Room* maintenanceRoom = new Room("Maintenance Room", "TBD");
-	Room* staffRoom = new Room("Staff Room", "TBD");
-	Room* securityCabin = new Room("Security Cabin", "TBD");
+	Room* maintenanceRoom = new Room("Maintenance Room", "The Maintenance Room is full of all kinds of objects, such as pallets,\nbrooms, mops, pickers...");
+	Room* staffRoom = new Room("Staff Room", "This room doesn't seem very interesting, it's full of office stuff.");
+	Room* securityCabin = new Room("Security Cabin", "You can see two rows of monitors on the security booth.\nIt would be great to see what's going on in the other rooms, but all\nyou can see on screen is a random pattern of static...it seems that the\ncamera system has been sabotaged.");
 
 	entities.push_back(maintenanceRoom);
 	entities.push_back(staffRoom);
 	entities.push_back(securityCabin);
 
-	Room* lobby = new Room("Lobby", "TBD");
-	Room* hallway = new Room("Hallway", "TBD");
-	Room* office = new Room("Office", "TBD");
-	Room* entrance = new Room("Entrance", "TBD");
-	Room* infirmary = new Room("Infirmary", "TBD");
+	Room* lobby = new Room("Lobby", "The open space before you is overwhelming, specially in contrast with\nthe rest of the facilities. A song that you're not able to recognize is\nplaying on an old turntable.\nThe room has a certain flair, but it is clear that it has been severely\nneglected. It seems that this room has been used for leisure activities.");
+	Room* hallway = new Room("Hallway", "This small passage joins the office area on the upper floor with all the\nmain facilities on the ground floor.");
+	Room* office = new Room("Office", "There is a large mahogany desk in front of you with very metodically\norganized paperwork on top.\nOn the table, a computer with a game on screen that you quickly\nrecognize: Zork.\nYou have a flashback that blows your head off, indeed you were playing\nZork just before you passed out!\nOK now...this is quite something to digest...when you look inpect it\nclosely you see that the text on screen describes your surroundings,\nyou find out the way to put an end to all this madness. You smile while\nyou sit down to type your next command:");
 
 	entities.push_back(lobby);
 	entities.push_back(hallway);
 	entities.push_back(office);
-	entities.push_back(entrance);
-	entities.push_back(infirmary);
-
-	Room* secretChamber = new Room("Secret Chamber", "TBD");
-	Room* darkPassage = new Room("Dark Passage", "TBD");
-	Room* tunnel1 = new Room("Tunnel", "TBD");
-	Room* tunnel2 = new Room("Tunnel", "TBD");
-	Room* tunnel3 = new Room("Tunnel", "TBD");
-
-	entities.push_back(secretChamber);
-	entities.push_back(darkPassage);
-	entities.push_back(tunnel1);
-	entities.push_back(tunnel2);
-	entities.push_back(tunnel3);
 
 	Exit* cellNo1_Corridor = new Exit(Direction::S, cellNo1, corridor1, true);
 	Exit* cellNo2_Corridor = new Exit(Direction::N, cellNo2, corridor1, true);
@@ -114,26 +98,10 @@ World::World()
 	Exit* security_lobby = new Exit(Direction::E, securityCabin, lobby, true);
 	Exit* lobby_hallway = new Exit(Direction::U, lobby, hallway, false, false, "There is a Spiral staircase that goes ");
 	Exit* hallway_office = new Exit(Direction::N, hallway, office, true);
-	Exit* lobby_entrance = new Exit(Direction::E, lobby, entrance, true);
-	Exit* lobby_infirmary = new Exit(Direction::S, lobby, infirmary, true);
 
 	entities.push_back(security_lobby);
 	entities.push_back(lobby_hallway);
 	entities.push_back(hallway_office);
-	entities.push_back(lobby_entrance);
-	entities.push_back(lobby_infirmary);
-
-	Exit* infirmary_secret = new Exit(Direction::S, infirmary, secretChamber, true);
-	Exit* secret_passage = new Exit(Direction::W, secretChamber, darkPassage, true);
-	Exit* passage_tunnel1 = new Exit(Direction::W, darkPassage, tunnel1, true);
-	Exit* tunnel1_tunnel2 = new Exit(Direction::W, tunnel1, tunnel2, false);
-	Exit* tunnel2_tunnel3 = new Exit(Direction::W, tunnel2, tunnel3, false);
-
-	entities.push_back(infirmary_secret);
-	entities.push_back(secret_passage);
-	entities.push_back(passage_tunnel1);
-	entities.push_back(tunnel1_tunnel2);
-	entities.push_back(tunnel2_tunnel3);
 
 	player = new Player("PLAYER", "You have a face that only a mother could love.", cellNo4);
 	NPC* ork = new NPC("ORK", "The ORK is staring at you with a scowl.", cellNo1, 5);
@@ -173,22 +141,18 @@ GameState World::parse(vector<string>& vect) {
 		{
 			if (vect.front().compare("Q") == 0 ||
 				vect.front().compare("QUIT") == 0) {
+				if (player->location->getName().compare("Office") == 0) {
+					cout << stFgYellow << "Congratulations! You did it! You finished the game! :)";
+					cout << "\nYou were playing this game for ";
+					displayTime();
+					cout << "Your score was " << score << ".\n";
+				}
 				cout << stFgYellow << "Game closed.\n\n" << stBold << stFgBlue;
 				return END;
-			}
-			else if (vect.front().compare("HELP") == 0) {
-				// void displayHelp();
 			}
 			else if (vect.front().compare("INFO") == 0 ||
 				vect.front().compare("ABOUT") == 0) {
 				// void displayInfo();
-			}
-			else if (vect.front().compare("SAVE") == 0) {
-				// void saveGame();
-			}
-			else if (vect.front().compare("RESTORE") == 0 ||
-				vect.front().compare("LOAD") == 0) {
-				// void loadGame();
 			}
 			else if (vect.front().compare("RESTART") == 0) {
 				cout << stFgYellow << "Game restarted.\n\n" << stBold << stFgBlue;
