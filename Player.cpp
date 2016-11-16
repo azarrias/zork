@@ -55,7 +55,9 @@ const bool Player::go(const Direction& dir)
 	for (Entity* const element : location->container) {
 		if (element->type == EXIT) {
 			Exit* roomExit = ((Exit*)element);
-			if (roomExit->isDoor == true && roomExit->isOpenDoor == false) {
+			if (roomExit->isDoor == true && roomExit->isOpenDoor == false &&
+					location == roomExit->source && roomExit->direction == dir ||
+					location == roomExit->destination && getOppositeDirection(roomExit->direction) == dir) {
 				cout << "(You open the door)\n\n";
 				roomExit->isOpenDoor = true;
 				roomExit->updateDoorDescription();

@@ -35,7 +35,7 @@ World::World()
 	entities.push_back(cellNo7);
 	entities.push_back(cellNo8);
 
-	Room* corridor1 = new Room("Corridor", "This end of the corridor has a small window to the outside.\nIt's made of tempered safety glass so you shouldn't dream about that as a route escape.");
+	Room* corridor1 = new Room("Corridor", "This end of the corridor has a small window to the outside.\nIt's made of tempered safety glass so you shouldn't dream about that\nescape route.");
 	Room* corridor2 = new Room("Corridor", "TBD");
 	Room* corridor3 = new Room("Corridor", "TBD");
 	Room* corridor4 = new Room("Corridor", "TBD");
