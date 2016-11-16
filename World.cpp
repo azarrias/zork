@@ -17,12 +17,12 @@ using namespace std;
 World::World() 
 	: startTime(time(NULL)) {
 
-	Room* cellNo1 = new Room("Cell no. 1", "TBD");
-	Room* cellNo2 = new Room("Cell no. 2", "TBD");
+	Room* cellNo1 = new Room("Cell no. 1", "");
+	Room* cellNo2 = new Room("Cell no. 2", "There is another security bed in the center of this room.\nThe following phrase is written repeatedly all over the walls:\nThere is a small mailbox here. But as a matter of fact you can't see any mailbox in here.");
 	Room* cellNo3 = new Room("Cell no. 3", "TBD");
-	Room* cellNo4 = new Room("Cell no. 4", "Starting room");
+	Room* cellNo4 = new Room("Cell no. 4", "The appearance of the room where you woke up gives you the goosebumps.\nIt looks like you might be confined in a jailhouse or mental institution.\nWhy or how that happened is a mystery to you.\nThere is a security bed in the center of the room.\nIt seems as if its safety straps have been forced.\nDid you force them?");
 	Room* cellNo5 = new Room("Cell no. 5", "TBD");
-	Room* cellNo6 = new Room("Cell no. 6", "TBD");
+	Room* cellNo6 = new Room("Cell no. 6", "There are some mortal remains stacked up in a corner.\nSome of the bones don't look human.");
 	Room* cellNo7 = new Room("Cell no. 7", "TBD");
 	Room* cellNo8 = new Room("Cell no. 8", "TBD");
 
@@ -35,7 +35,7 @@ World::World()
 	entities.push_back(cellNo7);
 	entities.push_back(cellNo8);
 
-	Room* corridor1 = new Room("Corridor", "TBD");
+	Room* corridor1 = new Room("Corridor", "This end of the corridor has a small window to the outside.\nIt's made of tempered safety glass so you shouldn't dream about that as a route escape.");
 	Room* corridor2 = new Room("Corridor", "TBD");
 	Room* corridor3 = new Room("Corridor", "TBD");
 	Room* corridor4 = new Room("Corridor", "TBD");

@@ -8,8 +8,7 @@ class Room;
 enum ItemCategory
 {
 	WEAPON,
-	DRINK,
-	FOOD,
+	CONSUMABLE,
 	CONTAINER
 };
 

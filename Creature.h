@@ -23,6 +23,8 @@ public:
 	const bool equip(const string& item);
 	void attack(Creature* enemy) const;
 	const bool put(const string& inventoryItem, const string& itemContainer);
+	const bool drink(const string& drinkItem);
+	const bool eat(const string& foodItem);
 	const bool open(const Direction& dir);
 	const bool close(const Direction& dir);
 	char currentHitPoints;

@@ -9,6 +9,7 @@ public:
 	virtual ~Player();
 	void look() const;
 	bool look(const string& entityStr) const;
+	bool look(const string& entityStr, const list<Entity*>& entity) const;
 	const bool go(const Direction& dir);
 	const bool showInventory() const;
 };

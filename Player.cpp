@@ -21,12 +21,24 @@ void Player::look() const
 }
 
 bool Player::look(const string& entityStr) const {
-	for (Entity* element : this->location->container) {
+	// Elements from the room we're in
+	if (this->look(entityStr, this->location->container))
+		return true;
+
+	// Elements from the inventory
+	if (this->look(entityStr, this->container))
+		return true;
+
+	return false;
+}
+
+bool Player::look(const string& entityStr, const list<Entity*>& entityVector) const {
+	for (Entity* element : entityVector) {
 		if (entityStr.compare(element->getName()) == 0) {
 			if (Creature* creature = dynamic_cast<Creature*>(element)) {
 				cout << creature->getDescription();
-			if (creature->getStatus().compare("DEAD") != 0)
-				cout << "\nIt is " << creature->getStatus() << ".";
+				if (creature->getStatus().compare("DEAD") != 0)
+					cout << "\nIt is " << creature->getStatus() << ".";
 				return true;
 			}
 			else if (Item* item = dynamic_cast<Item*>(element)) {

@@ -2,7 +2,9 @@
 #include "Weapon.h"
 #include "Room.h"
 #include "Container.h"
+#include "Consumable.h"
 #include "Exit.h"
+#include <algorithm>
 #include <iostream>
 
 Creature::Creature(const string& name, const string& description, Room* initRoom, unsigned char hitPoints)
@@ -173,6 +175,54 @@ const bool Creature::close(const Direction& dir) {
 				else return false;
 			}
 		}
+	}
+	return false;
+}
+
+const bool Creature::drink(const string& drinkItem) {
+	unsigned char hitPointsHeal;
+	for (Entity* const element : this->container) {
+		if (drinkItem.compare(element->getName()) == 0 && element->type == ITEM && 
+			((Item*)element)->category == CONSUMABLE) {
+			Consumable* itemConsumable = (Consumable*)element;
+			if (itemConsumable->isDrink == true) {
+				cout << stBold << stFgBlue;
+				hitPointsHeal = this->rollDice(1, itemConsumable->healDiceSides) +
+					itemConsumable->healFixed;
+				cout << "Drinking the " << itemConsumable->getName() << " makes you restore ";
+				cout << hitPointsHeal << " hit points.\n";
+				// Your health can't surpass your maximum level
+				if ((currentHitPoints += hitPointsHeal) > initialHitPoints)
+					currentHitPoints = initialHitPoints;
+				return true;
+			}
+			break;
+		}
+		break;
+	}
+	return false;
+}
+
+const bool Creature::eat(const string& foodItem) {
+	unsigned char hitPointsHeal;
+	for (Entity* const element : this->container) {
+		if (foodItem.compare(element->getName()) == 0 && element->type == ITEM &&
+			((Item*)element)->category == CONSUMABLE) {
+			Consumable* itemConsumable = (Consumable*)element;
+			if (itemConsumable->isDrink == false) {
+				cout << stBold << stFgBlue;
+				hitPointsHeal = this->rollDice(1, itemConsumable->healDiceSides) +
+					itemConsumable->healFixed;
+				cout << "Eating the " << itemConsumable->getName() << " makes you restore ";
+				cout << hitPointsHeal << " hit points.\n";
+				// Your health can't surpass your maximum level
+				if ((currentHitPoints += hitPointsHeal) > initialHitPoints)
+					currentHitPoints = initialHitPoints;
+				return true;
+			}
+			break;
+		}
+		break;
 	}
 	return false;
 }
